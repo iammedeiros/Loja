@@ -18,7 +18,7 @@ import javax.persistence.Persistence;
  * @param <T>
  */
 @SuppressWarnings("unchecked")
-public class GenericDAO<T extends AbstractEntity> {
+public class GenericDAO<T extends AbstractEntity> implements IGenericDAO<T>{
     protected static EntityManager entityManager;
     
     static {
@@ -27,10 +27,12 @@ public class GenericDAO<T extends AbstractEntity> {
         entityManager = fac.createEntityManager();
     }
     
+    @Override
     public T getById(Long id) {
         return (T) entityManager.find(getTypeClass(), id);
     }
     
+    @Override
     public void save(T entity) {
         try {
             entityManager.getTransaction().begin();
@@ -42,6 +44,7 @@ public class GenericDAO<T extends AbstractEntity> {
         }
     }
     
+    @Override
     public void update(T entity) {
         try {
             entityManager.getTransaction().begin();
@@ -53,6 +56,7 @@ public class GenericDAO<T extends AbstractEntity> {
         }
     }
     
+    @Override
     public void delete(T entity) {
         try {
             entity = getById(entity.getId());
@@ -65,6 +69,7 @@ public class GenericDAO<T extends AbstractEntity> {
         }
     }
     
+    @Override
     public List<T> findAll() {
         return entityManager.createQuery(("From " + getTypeClass().getName()))
                 .getResultList();
