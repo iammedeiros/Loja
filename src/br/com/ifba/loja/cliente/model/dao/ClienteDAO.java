@@ -13,6 +13,7 @@ import java.util.List;
  *
  * @author wisof
  */
+
 public class ClienteDAO extends GenericDAO<Cliente> implements IClienteDAO {
     
     @Override

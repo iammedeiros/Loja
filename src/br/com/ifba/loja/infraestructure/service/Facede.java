@@ -9,6 +9,22 @@ package br.com.ifba.loja.infraestructure.service;
  *
  * @author wisof
  */
-public class Facede {
+
+public class Facede implements IFacede {
+    private static Facede instance;
     
+    private Facede() {
+    }
+    
+    /**
+     *
+     * @return
+     */
+    
+    public static synchronized Facede getInstance() {
+        if (instance == null)
+            instance = new Facede();
+        
+        return instance;
+    }
 }
