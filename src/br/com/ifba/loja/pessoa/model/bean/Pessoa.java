@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
  * @author Icaro
  */
 @MappedSuperclass
-public class Pessoa extends AbstractEntity {
+public abstract class Pessoa extends AbstractEntity {
     //pessoa física ou jurídica
     @Column(nullable = false)
     private char tipoPessoa;

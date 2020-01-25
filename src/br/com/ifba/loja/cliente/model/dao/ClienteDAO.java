@@ -7,6 +7,7 @@ package br.com.ifba.loja.cliente.model.dao;
 
 import br.com.ifba.loja.cliente.model.bean.Cliente;
 import br.com.ifba.loja.infraestructure.dao.GenericDAO;
+import java.util.List;
 
 /**
  *
@@ -14,4 +15,15 @@ import br.com.ifba.loja.infraestructure.dao.GenericDAO;
  */
 public class ClienteDAO extends GenericDAO<Cliente> implements IClienteDAO {
     
+    @Override
+    public List<Cliente> findByName(String name) {
+        String hql = "from clientes c where c.nome like %:nome%";
+        
+        return GenericDAO.entityManager.createQuery(hql).getResultList(); 
+    }
+
+    @Override
+    public Cliente findByCpf(String cpf) {  
+        return (Cliente) entityManager.find(Cliente.class, cpf);
+    }
 }

@@ -5,10 +5,16 @@
  */
 package br.com.ifba.loja.cliente.model.dao;
 
+import br.com.ifba.loja.infraestructure.model.AbstractEntity;
+import java.util.List;
+
 /**
  *
  * @author wisof
+ * @param <T>
+ * 
  */
-public interface IClienteDAO {
-    
+public interface IClienteDAO<T extends AbstractEntity> {
+    public List<T> findByName(String name);
+    public T findByCpf(String cpf);
 }
