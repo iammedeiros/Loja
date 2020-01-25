@@ -14,6 +14,12 @@ and open the template in the editor.
     <persistence-unit>
         <!-- provedor/implementacao do JPA -->
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <!-- entidades mapeadas -->
+        <class>br.com.ifba.cliente.model.bean</class>
+        <class>br.com.ifba.fornecedor.model.bean</class>
+        <class>br.com.ifba.funcionario.model.bean</class>
+        <class>br.com.ifba.produto.model.bean</class>
+        
         <properties>
             <!-- dados da conexao -->
             <property name="javax.persistence.jdbc.driver"
