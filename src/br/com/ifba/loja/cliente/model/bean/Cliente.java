@@ -26,8 +26,9 @@ public class Cliente extends Pessoa implements Serializable {
     @Column(nullable = true, length = 14)
     private String cpf_cnpj;
     @Temporal(TemporalType.DATE)
+    @Column(nullable = true)
     private Calendar dataNascimento;
-    @Column(nullable = false, length = 9)
+    @Column(nullable = true, length = 9)
     private String sexo;
 
     public String getRg() {
