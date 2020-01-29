@@ -20,7 +20,7 @@ public class ClienteService implements IClienteService {
     private final IClienteDAO clienteDAO = new ClienteDAO();
 
     @Override
-    public Cliente getById(Long id) {
+    public Cliente getByIdCliente(Long id) {
         if (id <= 0)
             throw new BusinessException("Id inválido!");
         
@@ -28,19 +28,19 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public void save(Cliente cliente) {
+    public void saveCliente(Cliente cliente) {
         if (validaCliente(cliente))
             clienteDAO.save(cliente);
     }
 
     @Override
-    public void update(Cliente cliente) {
+    public void updateCliente(Cliente cliente) {
         if (validaCliente(cliente))
             clienteDAO.update(cliente);
     }
 
     @Override
-    public void delete(Cliente cliente) {
+    public void deleteCliente(Cliente cliente) {
         if (cliente.getId() <= 0)
             throw new BusinessException("Id do cliente inválido!");
         else if (clienteDAO.getById(cliente.getId()) == null)
@@ -50,12 +50,12 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public List<Cliente> findAll() {
+    public List<Cliente> findAllClientes() {
         return clienteDAO.findAll();
     }
 
     @Override
-    public List<Cliente> findByName(String name) {
+    public List<Cliente> findByNameCliente(String name) {
         if (StringUtil.getInstance().isEmpty(name))
             throw new BusinessException("Argumento inválido!");
         
@@ -63,7 +63,7 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public Cliente findByCpf(String cpf) {
+    public Cliente findByCpfCliente(String cpf) {
         if (StringUtil.getInstance().isEmpty(cpf))
             throw new BusinessException("Argumento inválido!");
         
