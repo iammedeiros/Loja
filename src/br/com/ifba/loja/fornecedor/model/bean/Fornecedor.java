@@ -9,6 +9,7 @@ import br.com.ifba.loja.pessoa.model.bean.Pessoa;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -17,13 +18,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "fornecedores")
+@PrimaryKeyJoinColumn(name="idPessoa")
 public class Fornecedor extends Pessoa implements Serializable {
     @Column(nullable = false, length = 80)
     private String razaoSocial;
-    @Column(nullable = false, length = 11)
-    private int inscricaoEstadual;
-    @Column(nullable = false, length = 14)
-    private long cnpj;
 
     public String getRazaoSocial() {
         return razaoSocial;
@@ -31,21 +29,5 @@ public class Fornecedor extends Pessoa implements Serializable {
 
     public void setRazaoSocial(String razaoSocial) {
         this.razaoSocial = razaoSocial;
-    }
-
-    public int getInscricaoEstadual() {
-        return inscricaoEstadual;
-    }
-
-    public void setInscricaoEstadual(int inscricaoEstadual) {
-        this.inscricaoEstadual = inscricaoEstadual;
-    }
-
-    public long getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(long cnpj) {
-        this.cnpj = cnpj;
     }
 }

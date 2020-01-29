@@ -13,5 +13,5 @@ import br.com.ifba.loja.produto.model.bean.Produto;
  * @author wisof
  */
 public class ProdutoDAO extends GenericDAO<Produto> implements IProdutoDAO {
-    
+
 }

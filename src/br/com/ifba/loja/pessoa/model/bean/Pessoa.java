@@ -6,34 +6,45 @@
 package br.com.ifba.loja.pessoa.model.bean;
 
 import br.com.ifba.loja.infraestructure.model.AbstractEntity;
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
- * @author Icaro
+ * @author wisof
  */
-@MappedSuperclass
-public abstract class Pessoa extends AbstractEntity {
+@Entity
+@Table(name = "pessoas")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Pessoa extends AbstractEntity implements Serializable {
     //pessoa física ou jurídica
+    //recebe 1 para física e 2 para jurídica
     @Column(nullable = false)
-    private char tipoPessoa;
+    private int tipoPessoa;
     @Column(nullable = false, length = 65)
     private String nome;
+    @Column(nullable = true, length = 11)
+    private String ieRg;
+    @Column(nullable = true, length = 14)
+    private String cpfCnpj;
     @Column(nullable = true, length = 12)
-    private long telefone;
+    private String telefone;
     @Column(nullable = true, length = 80)
     private String email;
     @OneToOne(mappedBy = "pessoa", cascade = CascadeType.ALL)
     private Endereco endereco;
-
-    public char getTipoPessoa() {
+    
+    public int getTipoPessoa() {
         return tipoPessoa;
     }
 
-    public void setTipoPessoa(char tipoPessoa) {
+    public void setTipoPessoa(int tipoPessoa) {
         this.tipoPessoa = tipoPessoa;
     }
 
@@ -45,11 +56,27 @@ public abstract class Pessoa extends AbstractEntity {
         this.nome = nome;
     }
 
-    public long getTelefone() {
+    public String getIeRg() {
+        return ieRg;
+    }
+
+    public void setIeRg(String ieRg) {
+        this.ieRg = ieRg;
+    }
+
+    public String getCpfCnpj() {
+        return cpfCnpj;
+    }
+
+    public void setCpfCnpj(String cpf_cnpj) {
+        this.cpfCnpj = cpf_cnpj;
+    }
+    
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(long telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
     

@@ -75,7 +75,7 @@ public class ClienteService implements IClienteService {
             throw new BusinessException("Informe o nome do cliente!");
         else if (StringUtil.getInstance().isEmpty(cliente.getEndereco().getCidade()))
             throw new BusinessException("Informe a cidade no endereço do cliente!");
-        else if (StringUtil.getInstance().isEmpty(cliente.getEndereco().getBairro()))
+        else if (StringUtil.getInstance().isEmpty(cliente.getEndereco().getEstado()))
             throw new BusinessException("Informe o estado no endereço do cliente!");
         
         return true;

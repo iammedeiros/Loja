@@ -23,7 +23,7 @@ public class GenericDAO<T extends AbstractEntity> implements IGenericDAO<T>{
     
     static {
         EntityManagerFactory fac = Persistence
-                .createEntityManagerFactory("ProjetoLoja");
+                .createEntityManagerFactory("LojaPU");
         entityManager = fac.createEntityManager();
     }
     
