@@ -7,7 +7,13 @@ package br.com.ifba.loja.fornecedor.view;
 
 import br.com.ifba.loja.fornecedor.model.bean.Fornecedor;
 import br.com.ifba.loja.infraestructure.service.Facede;
+import br.com.ifba.loja.infraestructure.support.StringUtil;
+import br.com.ifba.loja.infraestructure.support.Support;
+import br.com.ifba.loja.pessoa.model.bean.Endereco;
+import java.awt.Component;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -318,12 +324,36 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
     private void jbtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSalvarActionPerformed
         Fornecedor fornecedor = new Fornecedor();
+        Endereco enderecoFornecedor = new Endereco();
         
+        fornecedor.setNome(jtxtNomeFantasia.getText());
+        fornecedor.setRazaoSocial(jtxtRazaoSocial.getText());
+        fornecedor.setIeRg(jtxtInscricaoEstadual.getText());
+        fornecedor.setTelefone(jftxtTelefone.getText());
+        fornecedor.setCpfCnpj(jftxtCnpj.getText().replace(".", "")
+                .replace("-", "")
+                .replace("/", ""));
+        fornecedor.setEmail(jtxtEmail.getText());
+       
+        enderecoFornecedor.setRua(jtxtRua.getText());
+        
+        if (!StringUtil.getInstance().isEmpty(jtxtNumero.getText()))
+            enderecoFornecedor.setNumero(Integer.parseInt(jtxtNumero.getText()));
+        else
+            enderecoFornecedor.setNumero(0);
+        
+        enderecoFornecedor.setBairro(jtxtBairro.getText());
+        enderecoFornecedor.setCidade(jtxtCidade.getText());
+        enderecoFornecedor.setEstado(jcbEstado.getSelectedItem().toString());
+        enderecoFornecedor.setCep(jftxtCep.getText());
+        enderecoFornecedor.setPessoa(fornecedor);
+        fornecedor.setEndereco(enderecoFornecedor);
         
         try {
             Facede.getInstance().saveFornecedor(fornecedor);
-            JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!", "Sucesso!", 
+            JOptionPane.showMessageDialog(this, "Fornecedor cadastrado com sucesso!", "Sucesso!", 
                     JOptionPane.INFORMATION_MESSAGE);
+            Support.getInstance().limpaCampos(jPanel2);
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Atenção!", 
