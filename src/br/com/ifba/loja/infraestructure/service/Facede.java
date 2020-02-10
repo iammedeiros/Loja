@@ -8,6 +8,9 @@ package br.com.ifba.loja.infraestructure.service;
 import br.com.ifba.loja.cliente.model.bean.Cliente;
 import br.com.ifba.loja.cliente.service.ClienteService;
 import br.com.ifba.loja.cliente.service.IClienteService;
+import br.com.ifba.loja.fornecedor.model.bean.Fornecedor;
+import br.com.ifba.loja.fornecedor.service.FornecedorService;
+import br.com.ifba.loja.fornecedor.service.IFornecedorService;
 import java.util.List;
 
 /**
@@ -69,5 +72,38 @@ public class Facede implements IFacede {
     @Override
     public Cliente findByCpfCliente(String cpf) {
         return clienteService.findByCpfCliente(cpf);
+    }
+
+    //-------------------------- Fornecedores -------------------------------
+    private final IFornecedorService fornecedorService = new FornecedorService();
+    
+    @Override
+    public Fornecedor getByIdFornecedor(Long id) {
+        return fornecedorService.getByIdFornecedor(id);
+    }
+
+    @Override
+    public void saveFornecedor(Fornecedor fornecedor) {
+        fornecedorService.saveFornecedor(fornecedor);
+    }
+
+    @Override
+    public void updateFornecedor(Fornecedor fornecedor) {
+        fornecedorService.updateFornecedor(fornecedor);
+    }
+
+    @Override
+    public void deleteFornecedor(Fornecedor fornecedor) {
+        fornecedorService.deleteFornecedor(fornecedor);
+    }
+
+    @Override
+    public List<Fornecedor> findAllFornecedores() {
+        return fornecedorService.findAllFornecedores();
+    }
+
+    @Override
+    public List<Fornecedor> findByRazaoSocialFornecedor(String razaoSocial) {
+        return fornecedorService.findByRazaoSocialFornecedor(razaoSocial);
     }
 }

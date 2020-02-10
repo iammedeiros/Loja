@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package br.com.ifba.loja.fornecedor.service;
 
 import br.com.ifba.loja.fornecedor.model.bean.Fornecedor;
@@ -42,7 +43,7 @@ public class FornecedorService implements IFornecedorService {
     @Override
     public void deleteFornecedor(Fornecedor fornecedor) {
         if (fornecedor.getId() <= 0)
-            throw new BusinessException("Id do fornecedor inválido!");
+            throw new BusinessException("O id do fornecedor é inválido!");
         else if (fornecedorDAO.getById(fornecedor.getId()) == null)
             throw new BusinessException("Fornecedor inexistente na base de dados!");
         
@@ -51,7 +52,7 @@ public class FornecedorService implements IFornecedorService {
 
     @Override
     public List<Fornecedor> findAllFornecedores() {
-       return fornecedorDAO.findAll();
+        return fornecedorDAO.findAll();
     }
 
     @Override

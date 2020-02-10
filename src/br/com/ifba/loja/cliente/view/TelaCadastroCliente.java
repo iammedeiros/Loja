@@ -6,13 +6,8 @@
 package br.com.ifba.loja.cliente.view;
 import br.com.ifba.loja.cliente.model.bean.Cliente;
 import br.com.ifba.loja.infraestructure.service.Facede;
-import br.com.ifba.loja.infraestructure.service.IFacede;
 import br.com.ifba.loja.infraestructure.support.StringUtil;
 import br.com.ifba.loja.pessoa.model.bean.Endereco;
-import br.com.ifba.loja.venda.view.TelaVenda;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;

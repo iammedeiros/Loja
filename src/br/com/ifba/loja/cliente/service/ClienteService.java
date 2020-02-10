@@ -42,7 +42,7 @@ public class ClienteService implements IClienteService {
     @Override
     public void deleteCliente(Cliente cliente) {
         if (cliente.getId() <= 0)
-            throw new BusinessException("Id do cliente inválido!");
+            throw new BusinessException("O id do cliente é inválido!");
         else if (clienteDAO.getById(cliente.getId()) == null)
             throw new BusinessException("Cliente inexistente na base de dados!");
         
