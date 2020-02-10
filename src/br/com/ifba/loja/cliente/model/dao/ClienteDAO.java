@@ -21,7 +21,9 @@ public class ClienteDAO extends GenericDAO<Cliente> implements IClienteDAO {
         String hql = "select p from pessoas p inner join clientes c on "
                 + "c.idPessoa = p.id where p.nome like %:nome%";
         
-        return GenericDAO.entityManager.createQuery(hql).getResultList(); 
+        return GenericDAO.entityManager.createQuery(hql)
+                .setParameter("nome", name)
+                .getResultList(); 
     }
 
     @Override

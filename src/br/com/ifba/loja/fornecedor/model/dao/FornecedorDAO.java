@@ -7,11 +7,21 @@ package br.com.ifba.loja.fornecedor.model.dao;
 
 import br.com.ifba.loja.fornecedor.model.bean.Fornecedor;
 import br.com.ifba.loja.infraestructure.dao.GenericDAO;
+import java.util.List;
 
 /**
  *
  * @author wisof
  */
 public class FornecedorDAO extends GenericDAO<Fornecedor> implements IFornecedorDAO {
-    
+
+    @Override
+    public List<Fornecedor> findByRazaoSocial(String razaoSocial) {
+       String hql = "select p from pessoas p inner join fornecedores f on "
+                + "f.idPessoa = p.id where f.razaoSocial like %:razaoSocial%";
+        
+        return GenericDAO.entityManager.createQuery(hql)
+                .setParameter("razaoSocial", razaoSocial)
+                .getResultList(); 
+    } 
 }

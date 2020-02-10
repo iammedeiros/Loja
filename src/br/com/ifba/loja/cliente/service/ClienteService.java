@@ -57,7 +57,7 @@ public class ClienteService implements IClienteService {
     @Override
     public List<Cliente> findByNameCliente(String name) {
         if (StringUtil.getInstance().isEmpty(name))
-            throw new BusinessException("Argumento inválido!");
+            throw new BusinessException("Parâmetro inválido!");
         
         return clienteDAO.findByName(name);
     }
@@ -65,7 +65,7 @@ public class ClienteService implements IClienteService {
     @Override
     public Cliente findByCpfCliente(String cpf) {
         if (StringUtil.getInstance().isEmpty(cpf))
-            throw new BusinessException("Argumento inválido!");
+            throw new BusinessException("Parâmetro inválido!");
         
         return clienteDAO.findByCpf(cpf);
     }

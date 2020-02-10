@@ -5,7 +5,6 @@
  */
 package br.com.ifba.loja.cliente.model.bean;
 
-import br.com.ifba.loja.pessoa.model.bean.Endereco;
 import br.com.ifba.loja.pessoa.model.bean.Pessoa;
 import java.io.Serializable;
 import java.util.Calendar;
