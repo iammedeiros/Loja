@@ -7,8 +7,12 @@ package br.com.ifba.loja.cliente.view;
 import br.com.ifba.loja.cliente.model.bean.Cliente;
 import br.com.ifba.loja.infraestructure.service.Facede;
 import br.com.ifba.loja.infraestructure.support.StringUtil;
+import br.com.ifba.loja.infraestructure.support.Support;
 import br.com.ifba.loja.pessoa.model.bean.Endereco;
+import java.awt.Component;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 /**
@@ -416,7 +420,8 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         cliente.setTelefone(jftxtTelefone.getText());
         cliente.setIeRg(jtxtIeRg.getText());
         cliente.setCpfCnpj(jftxtCpfCnpj.getText().replace(".", "")
-                .replace("-", "").replace("/", ""));
+                .replace("-", "")
+                .replace("/", ""));
         enderecoCliente.setRua(jtxtRua.getText());
         
         if (!StringUtil.getInstance().isEmpty(jtxtNumero.getText()))
@@ -435,6 +440,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
             Facede.getInstance().saveCliente(cliente);
             JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!", "Sucesso!", 
                     JOptionPane.INFORMATION_MESSAGE);
+            Support.getInstance().limpaCampos(jPanel1);
         }
         catch(Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Atenção!", 
