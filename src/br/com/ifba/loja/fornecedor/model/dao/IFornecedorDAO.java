@@ -17,4 +17,5 @@ import java.util.List;
 
 public interface IFornecedorDAO extends IGenericDAO<Fornecedor> {
     public List<Fornecedor> findByRazaoSocial(String razaoSocial);
+    public Fornecedor findByCnpj(String cnpj);
 }

@@ -24,4 +24,9 @@ public class FornecedorDAO extends GenericDAO<Fornecedor> implements IFornecedor
                 .setParameter("razaoSocial", razaoSocial)
                 .getResultList(); 
     } 
+
+    @Override
+    public Fornecedor findByCnpj(String cnpj) {
+        return (Fornecedor) entityManager.find(Fornecedor.class, cnpj);
+    }
 }

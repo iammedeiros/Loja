@@ -106,4 +106,9 @@ public class Facede implements IFacede {
     public List<Fornecedor> findByRazaoSocialFornecedor(String razaoSocial) {
         return fornecedorService.findByRazaoSocialFornecedor(razaoSocial);
     }
+
+    @Override
+    public Fornecedor findByCnpjFornecedor(String cnpj) {
+        return fornecedorService.findByCnpjFornecedor(cnpj);
+    }
 }

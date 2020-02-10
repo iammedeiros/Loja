@@ -30,4 +30,5 @@ public interface IFacede {
     public void deleteFornecedor(Fornecedor fornecedor);
     public List<Fornecedor> findAllFornecedores();
     public List<Fornecedor> findByRazaoSocialFornecedor(String razaoSocial);
+    public Fornecedor findByCnpjFornecedor(String cnpj);
 }

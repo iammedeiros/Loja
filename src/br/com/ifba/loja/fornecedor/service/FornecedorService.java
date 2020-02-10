@@ -63,6 +63,14 @@ public class FornecedorService implements IFornecedorService {
         return fornecedorDAO.findByRazaoSocial(razaoSocial);
     }
     
+    @Override
+    public Fornecedor findByCnpjFornecedor(String cnpj) {
+        if (StringUtil.getInstance().isEmpty(cnpj))
+            throw new BusinessException("Parâmetro inválido!");
+        
+        return fornecedorDAO.findByCnpj(cnpj);
+    }
+    
     private boolean validaFornecedor(Fornecedor fornecedor) {
         if (StringUtil.getInstance().isEmpty(fornecedor.getNome()))
             throw new BusinessException("Informe o nome fantasia do fornecedor!");
