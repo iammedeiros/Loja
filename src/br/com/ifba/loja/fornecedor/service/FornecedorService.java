@@ -74,12 +74,12 @@ public class FornecedorService implements IFornecedorService {
     private boolean validaFornecedor(Fornecedor fornecedor) {
         if (StringUtil.getInstance().isEmpty(fornecedor.getNome()))
             throw new BusinessException("Informe o nome fantasia do fornecedor!");
+        else if (StringUtil.getInstance().isEmpty(fornecedor.getCpfCnpj()))
+            throw new BusinessException("Informe o CNPJ do fornecedor!");
         else if (StringUtil.getInstance().isEmpty(fornecedor.getEndereco().getCidade()))
             throw new BusinessException("Informe a cidade no endereço do fornecedor!");
         else if (StringUtil.getInstance().isEmpty(fornecedor.getEndereco().getEstado()))
             throw new BusinessException("Informe o estado no endereço do fornecedor!");
-        else if (StringUtil.getInstance().isEmpty(fornecedor.getCpfCnpj()))
-            throw new BusinessException("Informe o CNPJ do fornecedor!");
         
         return true;
     }
