@@ -21,6 +21,7 @@ import java.util.List;
 public class Facede implements IFacede {
     private static Facede instance;
     
+    //construtor privado por que essa classe não pode ser instanciada fora dela
     private Facede() {
     }
     
@@ -29,6 +30,7 @@ public class Facede implements IFacede {
      * @return
      */
     
+    //metodo que serve para retornar a instancia da classe
     public static synchronized Facede getInstance() {
         if (instance == null)
             instance = new Facede();
@@ -41,37 +43,37 @@ public class Facede implements IFacede {
     
     @Override
     public Cliente getByIdCliente(Long id) {
-        return clienteService.getByIdCliente(id);
+        return clienteService.getById(id);
     }
 
     @Override
     public void saveCliente(Cliente cliente) {
-        clienteService.saveCliente(cliente);
+        clienteService.save(cliente);
     }
 
     @Override
     public void updateCliente(Cliente cliente) {
-        clienteService.updateCliente(cliente);
+        clienteService.update(cliente);
     }
 
     @Override
     public void deleteCliente(Cliente cliente) {
-        clienteService.deleteCliente(cliente);
+        clienteService.delete(cliente);
     }
 
     @Override
     public List<Cliente> findAllClientes() {
-        return clienteService.findAllClientes();
+        return clienteService.findAll();
     }
 
     @Override
     public List<Cliente> findByNameCliente(String name) {
-        return clienteService.findByNameCliente(name);
+        return clienteService.findByName(name);
     }
 
     @Override
     public Cliente findByCpfCliente(String cpf) {
-        return clienteService.findByCpfCliente(cpf);
+        return clienteService.findByCpf(cpf);
     }
 
     //-------------------------- Fornecedores -------------------------------
@@ -79,36 +81,36 @@ public class Facede implements IFacede {
     
     @Override
     public Fornecedor getByIdFornecedor(Long id) {
-        return fornecedorService.getByIdFornecedor(id);
+        return fornecedorService.getById(id);
     }
 
     @Override
     public void saveFornecedor(Fornecedor fornecedor) {
-        fornecedorService.saveFornecedor(fornecedor);
+        fornecedorService.save(fornecedor);
     }
 
     @Override
     public void updateFornecedor(Fornecedor fornecedor) {
-        fornecedorService.updateFornecedor(fornecedor);
+        fornecedorService.update(fornecedor);
     }
 
     @Override
     public void deleteFornecedor(Fornecedor fornecedor) {
-        fornecedorService.deleteFornecedor(fornecedor);
+        fornecedorService.delete(fornecedor);
     }
 
     @Override
     public List<Fornecedor> findAllFornecedores() {
-        return fornecedorService.findAllFornecedores();
+        return fornecedorService.findAll();
     }
 
     @Override
     public List<Fornecedor> findByRazaoSocialFornecedor(String razaoSocial) {
-        return fornecedorService.findByRazaoSocialFornecedor(razaoSocial);
+        return fornecedorService.findByRazaoSocial(razaoSocial);
     }
 
     @Override
     public Fornecedor findByCnpjFornecedor(String cnpj) {
-        return fornecedorService.findByCnpjFornecedor(cnpj);
+        return fornecedorService.findByCnpj(cnpj);
     }
 }

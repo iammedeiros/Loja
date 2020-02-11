@@ -15,11 +15,11 @@ import java.util.List;
  */
 
 public interface IFornecedorService {
-    public Fornecedor getByIdFornecedor(Long id);
-    public void saveFornecedor(Fornecedor fornecedor);
-    public void updateFornecedor(Fornecedor fornecedor);
-    public void deleteFornecedor(Fornecedor fornecedor);
-    public List<Fornecedor> findAllFornecedores();
-    public List<Fornecedor> findByRazaoSocialFornecedor(String razaoSocial);
-    public Fornecedor findByCnpjFornecedor(String cnpj);
+    public Fornecedor getById(Long id);
+    public void save(Fornecedor fornecedor);
+    public void update(Fornecedor fornecedor);
+    public void delete(Fornecedor fornecedor);
+    public List<Fornecedor> findAll();
+    public List<Fornecedor> findByRazaoSocial(String razaoSocial);
+    public Fornecedor findByCnpj(String cnpj);
 }

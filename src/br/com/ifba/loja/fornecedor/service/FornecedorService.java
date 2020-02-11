@@ -21,7 +21,7 @@ public class FornecedorService implements IFornecedorService {
     private final IFornecedorDAO fornecedorDAO = new FornecedorDAO();
     
     @Override
-    public Fornecedor getByIdFornecedor(Long id) {
+    public Fornecedor getById(Long id) {
         if (id <= 0)
             throw new BusinessException("Id inválido!");
         
@@ -29,19 +29,19 @@ public class FornecedorService implements IFornecedorService {
     }
 
     @Override
-    public void saveFornecedor(Fornecedor fornecedor) {
+    public void save(Fornecedor fornecedor) {
         if (validaFornecedor(fornecedor))
             fornecedorDAO.save(fornecedor);
     }
 
     @Override
-    public void updateFornecedor(Fornecedor fornecedor) {
+    public void update(Fornecedor fornecedor) {
         if (validaFornecedor(fornecedor))
             fornecedorDAO.update(fornecedor);
     }
 
     @Override
-    public void deleteFornecedor(Fornecedor fornecedor) {
+    public void delete(Fornecedor fornecedor) {
         if (fornecedor.getId() <= 0)
             throw new BusinessException("O id do fornecedor é inválido!");
         else if (fornecedorDAO.getById(fornecedor.getId()) == null)
@@ -51,12 +51,12 @@ public class FornecedorService implements IFornecedorService {
     }
 
     @Override
-    public List<Fornecedor> findAllFornecedores() {
+    public List<Fornecedor> findAll() {
         return fornecedorDAO.findAll();
     }
 
     @Override
-    public List<Fornecedor> findByRazaoSocialFornecedor(String razaoSocial) {
+    public List<Fornecedor> findByRazaoSocial(String razaoSocial) {
         if (StringUtil.getInstance().isEmpty(razaoSocial))
             throw new BusinessException("Parâmetro inválido!");
         
@@ -64,7 +64,7 @@ public class FornecedorService implements IFornecedorService {
     }
     
     @Override
-    public Fornecedor findByCnpjFornecedor(String cnpj) {
+    public Fornecedor findByCnpj(String cnpj) {
         if (StringUtil.getInstance().isEmpty(cnpj))
             throw new BusinessException("Parâmetro inválido!");
         

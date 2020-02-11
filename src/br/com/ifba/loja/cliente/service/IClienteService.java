@@ -13,11 +13,11 @@ import java.util.List;
  * @author wisof
  */
 public interface IClienteService {
-    public Cliente getByIdCliente(Long id);
-    public void saveCliente(Cliente cliente);
-    public void updateCliente(Cliente cliente);
-    public void deleteCliente(Cliente cliente);
-    public List<Cliente> findAllClientes();
-    public List<Cliente> findByNameCliente(String name);
-    public Cliente findByCpfCliente(String cpf);
+    public Cliente getById(Long id);
+    public void save(Cliente cliente);
+    public void update(Cliente cliente);
+    public void delete(Cliente cliente);
+    public List<Cliente> findAll();
+    public List<Cliente> findByName(String name);
+    public Cliente findByCpf(String cpf);
 }
