@@ -43,6 +43,7 @@ public class FuncionarioService implements IFuncionarioService {
     public void delete(Funcionario funcionario) {
         if (funcionario.getId() <= 0)
             throw new BusinessException("O id do funcionário é inválido!");
+        
         else if (funcionarioDAO.getById(funcionario.getId()) == null)
             throw new BusinessException("Funcionário inexistente na base de dados!");
         
@@ -67,10 +68,22 @@ public class FuncionarioService implements IFuncionarioService {
     private Boolean validaFuncionario(Funcionario funcionario) {
         if (StringUtil.getInstance().isEmpty(funcionario.getNome()))
             throw new BusinessException("Informe o nome do funcionário!");
+        
+        else if (funcionario.isUsuario()) {
+            if (StringUtil.getInstance().isEmpty(funcionario.getEmail()))
+                throw new BusinessException("Informe o email do funcionário "
+                        + "para acesso ao sistema!");
+            else if (StringUtil.getInstance().isEmpty(funcionario.getSenha()))
+                throw new BusinessException("Informe a senha do funcionário "
+                        + "para acesso ao sistema!");
+        }
+        
         else if (StringUtil.getInstance().isEmpty(funcionario.getCpfCnpj()))
             throw new BusinessException("Informe o cpf do funcionário!");
+        
         else if (StringUtil.getInstance().isEmpty(funcionario.getEndereco().getCidade()))
             throw new BusinessException("Informe a cidade no endereço do funcionário!");
+        
         else if (StringUtil.getInstance().isEmpty(funcionario.getEndereco().getEstado()))
             throw new BusinessException("Informe o estado no endereço do funcionário!");
         

@@ -533,10 +533,12 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtRgActionPerformed
 
     private void jrbSimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbSimActionPerformed
+        //habilita campo de senha se o funcionario for usuário do sistema
         jptxtSenha.setEnabled(true);
     }//GEN-LAST:event_jrbSimActionPerformed
 
     private void jrbNaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbNaoActionPerformed
+        //Desabilita campo de senha se o funcionario não for usuário do sistema
         jptxtSenha.setEnabled(false);
     }//GEN-LAST:event_jrbNaoActionPerformed
 

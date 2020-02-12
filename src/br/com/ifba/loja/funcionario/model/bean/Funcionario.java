@@ -39,7 +39,7 @@ public class Funcionario extends Pessoa implements Serializable {
     @Temporal(TemporalType.DATE)
     private Calendar dataAdmissao;
 
-    public Boolean getUsuario() {
+    public Boolean isUsuario() {
         return usuario;
     }
 

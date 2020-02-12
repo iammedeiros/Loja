@@ -88,7 +88,7 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
         jLabel4.setText("CNPJ:");
 
-        jLabel5.setText("E-mail:");
+        jLabel5.setText("Email:");
 
         jLabel7.setText("CEP:");
 
