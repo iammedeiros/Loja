@@ -11,6 +11,12 @@ import br.com.ifba.loja.cliente.service.IClienteService;
 import br.com.ifba.loja.fornecedor.model.bean.Fornecedor;
 import br.com.ifba.loja.fornecedor.service.FornecedorService;
 import br.com.ifba.loja.fornecedor.service.IFornecedorService;
+import br.com.ifba.loja.funcionario.model.bean.Funcionario;
+import br.com.ifba.loja.funcionario.service.FuncionarioService;
+import br.com.ifba.loja.funcionario.service.IFuncionarioService;
+import br.com.ifba.loja.produto.model.bean.Produto;
+import br.com.ifba.loja.produto.service.IServiceProduto;
+import br.com.ifba.loja.produto.service.ServiceProduto;
 import java.util.List;
 
 /**
@@ -112,5 +118,81 @@ public class Facede implements IFacede {
     @Override
     public Fornecedor findByCnpjFornecedor(String cnpj) {
         return fornecedorService.findByCnpj(cnpj);
+    }
+    
+    //-------------------------- Funcionários -------------------------------
+    private final IFuncionarioService funcionarioService = new FuncionarioService();
+    
+    @Override
+    public Funcionario getByIdFuncionario(Long id) {
+        return funcionarioService.getById(id);
+    }
+
+    @Override
+    public void saveFuncionario(Funcionario funcionario) {
+        funcionarioService.save(funcionario);
+    }
+
+    @Override
+    public void updateFuncionario(Funcionario funcionario) {
+        funcionarioService.update(funcionario);
+    }
+
+    @Override
+    public void deleteFuncionario(Funcionario funcionario) {
+        funcionarioService.delete(funcionario);
+    }
+
+    @Override
+    public List<Funcionario> findAllFuncionarios() {
+        return funcionarioService.findAll();
+    }
+
+    @Override
+    public List<Funcionario> findByNameFuncionario(String name) {
+        return funcionarioService.findByName(name);
+    }
+
+    @Override
+    public Funcionario findByCpfFuncionario(String cpf) {
+        return funcionarioService.findByCpf(cpf);
+    }
+    
+    //---------------------------- Produtos ----------------------------------
+    private final IServiceProduto produtoService = new ServiceProduto();
+    
+    @Override
+    public Produto getByIdProduto(Long id) {
+        return produtoService.getById(id);
+    }
+
+    @Override
+    public void saveProduto(Produto produto) {
+        produtoService.save(produto);
+    }
+
+    @Override
+    public void updateProduto(Produto produto) {
+        produtoService.update(produto);
+    }
+
+    @Override
+    public void deleteProduto(Produto produto) {
+        produtoService.delete(produto);
+    }
+
+    @Override
+    public List<Produto> findAllProdutos() {
+        return produtoService.findAll();
+    }
+
+    @Override
+    public List<Produto> findByDescricaoProduto(String descricao) {
+        return produtoService.findByDescricao(descricao);
+    }
+
+    @Override
+    public Produto findByCodigoBarrasProduto(String codigoBarras) {
+        return produtoService.findByCodigoBarras(codigoBarras);
     }
 }

@@ -7,6 +7,8 @@ package br.com.ifba.loja.infraestructure.service;
 
 import br.com.ifba.loja.cliente.model.bean.Cliente;
 import br.com.ifba.loja.fornecedor.model.bean.Fornecedor;
+import br.com.ifba.loja.funcionario.model.bean.Funcionario;
+import br.com.ifba.loja.produto.model.bean.Produto;
 import java.util.List;
 
 /**
@@ -31,4 +33,22 @@ public interface IFacede {
     public List<Fornecedor> findAllFornecedores();
     public List<Fornecedor> findByRazaoSocialFornecedor(String razaoSocial);
     public Fornecedor findByCnpjFornecedor(String cnpj);
+    
+    //--------------------- Funcionários -------------------------------
+    public Funcionario getByIdFuncionario(Long id);
+    public void saveFuncionario(Funcionario funcionario);
+    public void updateFuncionario(Funcionario funcionario);
+    public void deleteFuncionario(Funcionario funcionario);
+    public List<Funcionario> findAllFuncionarios();
+    public List<Funcionario> findByNameFuncionario(String name);
+    public Funcionario findByCpfFuncionario(String cpf);
+    
+    //--------------------- Produtos ----------------------------------
+    public Produto getByIdProduto(Long id);
+    public void saveProduto(Produto produto);
+    public void updateProduto(Produto produto);
+    public void deleteProduto(Produto produto);
+    public List<Produto> findAllProdutos();
+    public List<Produto> findByDescricaoProduto(String descricao);
+    public Produto findByCodigoBarrasProduto(String codigoBarras);
 }
