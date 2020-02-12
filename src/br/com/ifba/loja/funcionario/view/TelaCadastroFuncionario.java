@@ -435,7 +435,6 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
 
     private void jbtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelarActionPerformed
         // TODO add your handling code here:
-        new TelaGerente().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jbtnCancelarActionPerformed
 

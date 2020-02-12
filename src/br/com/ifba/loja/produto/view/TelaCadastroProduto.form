@@ -190,6 +190,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jtxtLote">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtLoteKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -227,6 +230,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jtxtSecao">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtxtSecaoKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>

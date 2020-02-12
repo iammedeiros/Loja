@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package br.com.ifba.loja.produto.view;
+import br.com.ifba.loja.gerente.view.TelaGerente;
+import br.com.ifba.loja.infraestructure.support.Support;
 import br.com.ifba.loja.produto.model.bean.Produto;
 import br.com.ifba.loja.venda.view.TelaVenda;
 import java.sql.Date;
@@ -69,6 +71,12 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         jLabel2.setText("Lote:");
 
+        jtxtLote.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtLoteKeyReleased(evt);
+            }
+        });
+
         jLabel3.setText("Preço de Custo:");
 
         jtxtPrecoCusto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -87,6 +95,12 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jLabel8.setText("Categoria:");
 
         jLabel9.setText("Seção:");
+
+        jtxtSecao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtSecaoKeyReleased(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/salvar.png"))); // NOI18N
         jButton1.setText("Salvar");
@@ -267,38 +281,12 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        /*List <Produto> PR = new ArrayList();
-        Produto p = new Produto();
-        ProdutosDAO PD = new ProdutosDAO();
-        SimpleDateFormat formato = new SimpleDateFormat("yyyy/MM/dd");
-
-        try{
-            
-            p.setNomeProduto(jTextField1.getText());
-            p.setLote(Integer.parseInt(jTextField2.getText()));
-            p.setPreco(Double.parseDouble(jTextField3.getText()));
-            p.setGenero(jTextField7.getText());
-            p.setSecao(Integer.parseInt(jTextField8.getText()));
-            p.setDataValidade(jTextField6.getText());
-            p.setCodigoBarras(Integer.parseInt(jTextField4.getText()));
-            
-            Caixa caixa = new Caixa();
-            caixa.setDebito(p.getPreco());
-            
-            PD.create(p);
-   
-        }catch(java.lang.NumberFormatException ex){
-            
-            JOptionPane.showMessageDialog(null, "Um ou mais campos númericos foram preenchidos com pontos, espaços ou caracteres!");
         
-        }*/
       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        new TelaVenda().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -317,6 +305,18 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jtxtPrecoVenda.setText(jtxtPrecoVenda.getText()
                 .replaceAll("[^0-9.,]", ""));
     }//GEN-LAST:event_jtxtPrecoVendaKeyReleased
+
+    private void jtxtSecaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtSecaoKeyReleased
+        //faz com que o textbox aceite somente numeros, ponto e virgula
+        jtxtSecao.setText(jtxtSecao.getText()
+                .replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jtxtSecaoKeyReleased
+
+    private void jtxtLoteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtLoteKeyReleased
+        //faz com que o textbox aceite somente numeros, ponto e virgula
+        jtxtLote.setText(jtxtLote.getText()
+                .replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jtxtLoteKeyReleased
 
     /**
      * @param args the command line arguments

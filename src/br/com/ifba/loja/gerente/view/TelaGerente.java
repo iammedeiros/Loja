@@ -5,11 +5,13 @@
  */
 package br.com.ifba.loja.gerente.view;
 
+import br.com.ifba.loja.cliente.view.TelaCadastroCliente;
 import br.com.ifba.loja.infraestructure.view.TelaLogin;
 import br.com.ifba.loja.produto.view.TelaVerificarEstoque;
 import br.com.ifba.loja.funcionario.view.PesquisarFuncionario;
 import br.com.ifba.loja.funcionario.view.TelaCadastroFuncionario;
 import br.com.ifba.loja.fornecedor.view.TelaCadastroFornecedor;
+import br.com.ifba.loja.produto.view.TelaCadastroProduto;
 
 /**
  *
@@ -42,6 +44,8 @@ public class TelaGerente extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         sairTelaGerente = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela do Gerente");
@@ -142,6 +146,28 @@ public class TelaGerente extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 510, 60));
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/novoCliente.png"))); // NOI18N
+        jButton2.setText("Novo Cliente");
+        jButton2.setMaximumSize(new java.awt.Dimension(169, 35));
+        jButton2.setMinimumSize(new java.awt.Dimension(169, 35));
+        jButton2.setPreferredSize(new java.awt.Dimension(169, 35));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 220, -1));
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/add.png"))); // NOI18N
+        jButton4.setText("Cadastrar Produto");
+        jButton4.setPreferredSize(new java.awt.Dimension(169, 35));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 220, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -166,26 +192,32 @@ public class TelaGerente extends javax.swing.JFrame {
     private void cadastroFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroFuncionarioActionPerformed
         // TODO add your handling code here:
         new TelaCadastroFuncionario().setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_cadastroFuncionarioActionPerformed
 
     private void cadastroFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroFornecedorActionPerformed
         // TODO add your handling code here:
         new TelaCadastroFornecedor().setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_cadastroFornecedorActionPerformed
 
     private void pesquisarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarFuncionarioActionPerformed
         // TODO add your handling code here:
         new PesquisarFuncionario().setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_pesquisarFuncionarioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         new TelaVerificarEstoque(2).setVisible(true);
-        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        new TelaCadastroCliente().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        new TelaCadastroProduto().setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,6 +258,8 @@ public class TelaGerente extends javax.swing.JFrame {
     private javax.swing.JButton cadastroFornecedor;
     private javax.swing.JButton cadastroFuncionario;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

@@ -200,6 +200,11 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jbtnCancelar.setMaximumSize(new java.awt.Dimension(95, 29));
         jbtnCancelar.setMinimumSize(new java.awt.Dimension(95, 29));
         jbtnCancelar.setPreferredSize(new java.awt.Dimension(95, 29));
+        jbtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCancelarActionPerformed(evt);
+            }
+        });
 
         try {
             jftxtCpfCnpj.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -509,6 +514,10 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jtxtNumero.setText(jtxtNumero.getText()
                 .replaceAll("[^0-9]", ""));
     }//GEN-LAST:event_jtxtNumeroKeyReleased
+
+    private void jbtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbtnCancelarActionPerformed
 
     //metodo para setar a mascara do campo em run-time
     private MaskFormatter setMascara(String Mascara) {
