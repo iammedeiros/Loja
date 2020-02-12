@@ -38,7 +38,7 @@ public class Produto extends AbstractEntity implements Serializable {
     @Column(nullable = true)
     private Calendar dataValidade;
     @Column(nullable = true)
-    private int codigoBarras;
+    private String codigoBarras;
 
     public String getDescricao() {
         return descricao;
@@ -96,11 +96,11 @@ public class Produto extends AbstractEntity implements Serializable {
         this.dataValidade = dataValidade;
     }
 
-    public int getCodigoBarras() {
+    public String getCodigoBarras() {
         return codigoBarras;
     }
 
-    public void setCodigoBarras(int codigoBarras) {
+    public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras;
     }
 }

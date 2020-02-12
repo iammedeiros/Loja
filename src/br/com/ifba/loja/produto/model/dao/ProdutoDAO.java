@@ -7,6 +7,7 @@ package br.com.ifba.loja.produto.model.dao;
 
 import br.com.ifba.loja.infraestructure.dao.GenericDAO;
 import br.com.ifba.loja.produto.model.bean.Produto;
+import java.util.List;
 
 /**
  *
@@ -14,4 +15,17 @@ import br.com.ifba.loja.produto.model.bean.Produto;
  */
 public class ProdutoDAO extends GenericDAO<Produto> implements IProdutoDAO {
 
+    @Override
+    public List<Produto> findByDescricao(String descricao) {
+        String hql = "select p from produtos where descricao like %:nome%";
+        
+        return GenericDAO.entityManager.createQuery(hql)
+                .setParameter("nome", descricao)
+                .getResultList();
+    }
+
+    @Override
+    public Produto findByCodigoBarras(String codigoBarras) {
+        return (Produto) entityManager.find(Produto.class, codigoBarras);
+    }
 }
