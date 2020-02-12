@@ -10,6 +10,9 @@ import br.com.ifba.loja.infraestructure.support.StringUtil;
 import br.com.ifba.loja.infraestructure.support.Support;
 import br.com.ifba.loja.pessoa.model.bean.Endereco;
 import java.awt.Component;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -248,7 +251,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
         jLabel7.setText("Nascimento:");
 
-        jLabel3.setText("E-Mail:");
+        jLabel3.setText("Email:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -410,6 +413,11 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         Cliente cliente = new Cliente();
         Endereco enderecoCliente = new Endereco();
         
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar nascimento = Calendar.getInstance();
+        
+        //verifica se o cliente é pessoa física ou jurídica
+        //seta 1 para física e 2 para jurídica
         if (jrbFisica.isSelected())
             cliente.setTipoPessoa(1);
         else
@@ -417,13 +425,36 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         
         cliente.setNome(jtxtNome.getText());
         cliente.setSexo(jcbSexo.getSelectedItem().toString());
-        cliente.setTelefone(jftxtTelefone.getText());
+        
+        try {
+            //verifica se o campo dataNascimento não está vázio
+            if (!StringUtil.getInstance().isEmpty(jftxtDataNascimento.getText()
+                    .replace("/", "")))
+                //se não estiver converte a data de string para calendar
+                nascimento.setTime(sdf.parse(jftxtDataNascimento.getText()));
+            else
+                //se estiver seta o valor como nulo
+                nascimento = null;
+        } 
+        catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Formato de data inválido!", "Atenção!", 
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        
+        cliente.setDataNascimento(nascimento);
+        cliente.setTelefone(jftxtTelefone.getText().replace(" ", "")
+                .replace("(", "")
+                .replace(")", "")
+                .replace("-", ""));
         cliente.setIeRg(jtxtIeRg.getText());
         cliente.setCpfCnpj(jftxtCpfCnpj.getText().replace(".", "")
                 .replace("-", "")
                 .replace("/", ""));
         enderecoCliente.setRua(jtxtRua.getText());
         
+        //verifica se o numero é vazio
+        //se não for converte em inteiro
+        //se for atribui 0 ao numero no endereco do cliente
         if (!StringUtil.getInstance().isEmpty(jtxtNumero.getText()))
             enderecoCliente.setNumero(Integer.parseInt(jtxtNumero.getText()));
         else
@@ -437,6 +468,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         cliente.setEndereco(enderecoCliente);
         
         try {
+            //chamada do metodo para persistir os dados na base
             Facede.getInstance().saveCliente(cliente);
             JOptionPane.showMessageDialog(this, "Cliente cadastrado com sucesso!", "Sucesso!", 
                     JOptionPane.INFORMATION_MESSAGE);
@@ -449,6 +481,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnSalvarActionPerformed
 
     private void jrbFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbFisicaActionPerformed
+        //seta mascará e muda valores do texto
         jlblCpfCnpj.setText("CPF:");
         jlblIeRg.setText("RG:");
         jftxtCpfCnpj.setValue(null);
@@ -457,6 +490,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jrbFisicaActionPerformed
 
     private void jrbJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbJuridicaActionPerformed
+        //seta mascará e muda valores do texto
         jlblCpfCnpj.setText("CNPJ:");
         jlblIeRg.setText("IE:");
         jftxtCpfCnpj.setValue(null);
@@ -464,6 +498,7 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
                 new DefaultFormatterFactory(setMascara("##.###.###/####-##"))); 
     }//GEN-LAST:event_jrbJuridicaActionPerformed
 
+    //metodo para setar a mascara do campo em run-time
     private MaskFormatter setMascara(String Mascara) {
         
         MaskFormatter F_Mascara = new MaskFormatter();

@@ -81,6 +81,8 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         jrbNao = new javax.swing.JRadioButton();
         jftxtTelefone = new javax.swing.JFormattedTextField();
         jptxtSenha = new javax.swing.JPasswordField();
+        jLabel18 = new javax.swing.JLabel();
+        jftxtDataNascimento = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -259,6 +261,14 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        jLabel18.setText("Nascimento:");
+
+        try {
+            jftxtDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -302,9 +312,15 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                             .addComponent(jcbSexo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jtxtRg, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jftxtCpf))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jftxtCpf))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jftxtDataNascimento))))
                     .addComponent(jtxtCargo)
                     .addComponent(jtxtEmail)
                     .addComponent(jtxtNome)
@@ -348,7 +364,9 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jcbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13))
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel18)
+                    .addComponent(jftxtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtxtRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -433,7 +451,33 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Calendar admissao = Calendar.getInstance();
+        Calendar nascimento = Calendar.getInstance();
+        
+        try {
+            //verifica se o campo dataNascimento não é vazio
+            if (!StringUtil.getInstance().isEmpty(jftxtDataNascimento.getText()
+                    .replace("/", "")))
+                //se não for converte a data de string para calendar
+                nascimento.setTime(sdf.parse(jftxtDataNascimento.getText()));
+            else
+                //se for atribui null ao nascimento
+                nascimento = null;
+            
+            //mesma coisa das instruções acima
+            //porém com o campo de data de admissão
+            if (!StringUtil.getInstance().isEmpty(jftxtDataAdmissao.getText()
+                    .replace("/", "")))
+                admissao.setTime(sdf.parse(jftxtDataAdmissao.getText()));
+            else
+                admissao = null;
+        } 
+        catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Formato de data inválido!", "Atenção!", 
+                    JOptionPane.WARNING_MESSAGE);
+        }
  
+        //verifica se o funcionário é um usuário do sistema
+        //e preenche o atributo usuário que é do tipo boolean
         if (jrbSim.isSelected())
             funcionario.setUsuario(true);
         else
@@ -443,6 +487,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         funcionario.setEmail(jtxtEmail.getText());
         funcionario.setSenha(new String(jptxtSenha.getPassword()));
         funcionario.setSexo(jcbSexo.getSelectedItem().toString());
+        funcionario.setDataNascimento(nascimento);
         funcionario.setIeRg(jtxtRg.getText());
         funcionario.setCpfCnpj(jftxtCpf.getText().replace(".", "")
                 .replace("-", ""));
@@ -451,9 +496,13 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
                 .replace("(", "")
                 .replace(")", "")
                 .replace("-", ""));
-
+        funcionario.setDataAdmissao(admissao);
+        
         enderecoFuncionario.setRua(jtxtRua.getText());
         
+        //verifica se o numero é vazio
+        //se não for converte em inteiro
+        //se for atribui 0 ao numero no endereco funcionário
         if (!StringUtil.getInstance().isEmpty(jtxtNumero.getText()))
             enderecoFuncionario.setNumero(Integer.parseInt(jtxtNumero.getText()));
         else
@@ -463,20 +512,11 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         enderecoFuncionario.setCidade(jtxtCidade.getText());
         enderecoFuncionario.setEstado(jcbEstado.getSelectedItem().toString());
         enderecoFuncionario.setCep(jftxtCep.getText().replace("-", ""));
-        
-        try {
-            admissao.setTime(sdf.parse(jftxtDataAdmissao.getText()));
-        } 
-        catch (ParseException ex) {
-            ex.printStackTrace();
-        }
-        
-        funcionario.setDataAdmissao(admissao);
-        
         enderecoFuncionario.setPessoa(funcionario);
         funcionario.setEndereco(enderecoFuncionario);
         
         try {
+            //chamada do metodo para persistir os dados na base
             Facede.getInstance().saveFuncionario(funcionario);
             JOptionPane.showMessageDialog(this, "Funcionário cadastrado com sucesso!", "Sucesso!", 
                     JOptionPane.INFORMATION_MESSAGE);
@@ -546,6 +586,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -564,6 +605,7 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jftxtCep;
     private javax.swing.JFormattedTextField jftxtCpf;
     private javax.swing.JFormattedTextField jftxtDataAdmissao;
+    private javax.swing.JFormattedTextField jftxtDataNascimento;
     private javax.swing.JFormattedTextField jftxtTelefone;
     private javax.swing.JPasswordField jptxtSenha;
     private javax.swing.JRadioButton jrbNao;

@@ -329,7 +329,10 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         fornecedor.setNome(jtxtNomeFantasia.getText());
         fornecedor.setRazaoSocial(jtxtRazaoSocial.getText());
         fornecedor.setIeRg(jtxtInscricaoEstadual.getText());
-        fornecedor.setTelefone(jftxtTelefone.getText());
+        fornecedor.setTelefone(jftxtTelefone.getText().replace(" ", "")
+                .replace("(", "")
+                .replace(")", "")
+                .replace("-", ""));
         fornecedor.setCpfCnpj(jftxtCnpj.getText().replace(".", "")
                 .replace("-", "")
                 .replace("/", ""));
@@ -337,6 +340,9 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
        
         enderecoFornecedor.setRua(jtxtRua.getText());
         
+        //verifica se o numero é vazio
+        //se não for converte em inteiro
+        //se for atribui 0 ao numero no endereco do fornecedor
         if (!StringUtil.getInstance().isEmpty(jtxtNumero.getText()))
             enderecoFornecedor.setNumero(Integer.parseInt(jtxtNumero.getText()));
         else
@@ -345,11 +351,12 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
         enderecoFornecedor.setBairro(jtxtBairro.getText());
         enderecoFornecedor.setCidade(jtxtCidade.getText());
         enderecoFornecedor.setEstado(jcbEstado.getSelectedItem().toString());
-        enderecoFornecedor.setCep(jftxtCep.getText());
+        enderecoFornecedor.setCep(jftxtCep.getText().replace("-", ""));
         enderecoFornecedor.setPessoa(fornecedor);
         fornecedor.setEndereco(enderecoFornecedor);
         
         try {
+            //chamada do metodo para persistir os dados na base
             Facede.getInstance().saveFornecedor(fornecedor);
             JOptionPane.showMessageDialog(this, "Fornecedor cadastrado com sucesso!", "Sucesso!", 
                     JOptionPane.INFORMATION_MESSAGE);
