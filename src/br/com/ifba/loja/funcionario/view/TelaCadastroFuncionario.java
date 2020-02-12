@@ -219,6 +219,12 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        jtxtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroKeyReleased(evt);
+            }
+        });
+
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuário do sistema?"));
 
         buttonGroup1.add(jrbSim);
@@ -541,6 +547,12 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
         //Desabilita campo de senha se o funcionario não for usuário do sistema
         jptxtSenha.setEnabled(false);
     }//GEN-LAST:event_jrbNaoActionPerformed
+
+    private void jtxtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroKeyReleased
+        //faz com que o textbox aceite somente numeros, ponto e virgula
+        jtxtNumero.setText(jtxtNumero.getText()
+                .replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jtxtNumeroKeyReleased
 
     /**
      * @param args the command line arguments

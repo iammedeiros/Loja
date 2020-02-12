@@ -88,6 +88,12 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
 
         jLabel6.setText("Nº:");
 
+        jtxtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroKeyReleased(evt);
+            }
+        });
+
         jLabel5.setText("Bairro:");
 
         jLabel4.setText("Rua:");
@@ -497,6 +503,12 @@ public class TelaCadastroCliente extends javax.swing.JFrame {
         jftxtCpfCnpj.setFormatterFactory(
                 new DefaultFormatterFactory(setMascara("##.###.###/####-##"))); 
     }//GEN-LAST:event_jrbJuridicaActionPerformed
+
+    private void jtxtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroKeyReleased
+        //faz com que o textbox aceite somente numeros, ponto e virgula
+        jtxtNumero.setText(jtxtNumero.getText()
+                .replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jtxtNumeroKeyReleased
 
     //metodo para setar a mascara do campo em run-time
     private MaskFormatter setMascara(String Mascara) {

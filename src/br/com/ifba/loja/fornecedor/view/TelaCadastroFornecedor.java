@@ -108,6 +108,12 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
 
         jLabel12.setText("Nº:");
 
+        jtxtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtNumeroKeyReleased(evt);
+            }
+        });
+
         jbtnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/salvar.png"))); // NOI18N
         jbtnSalvar.setText("Salvar");
         jbtnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -371,6 +377,12 @@ public class TelaCadastroFornecedor extends javax.swing.JFrame {
     private void jtxtNomeFantasiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtNomeFantasiaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtNomeFantasiaActionPerformed
+
+    private void jtxtNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNumeroKeyReleased
+        //faz com que o textbox aceite somente numeros, ponto e virgula
+        jtxtNumero.setText(jtxtNumero.getText()
+                .replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jtxtNumeroKeyReleased
 
     /**
      * @param args the command line arguments
