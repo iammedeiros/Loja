@@ -4,12 +4,20 @@
  * and open the template in the editor.
  */
 package br.com.ifba.loja.funcionario.view;
+import br.com.ifba.loja.funcionario.model.bean.Funcionario;
 import br.com.ifba.loja.gerente.view.TelaGerente;
-import java.util.ArrayList;
-import java.util.List;
+import br.com.ifba.loja.infraestructure.service.Facede;
+import br.com.ifba.loja.infraestructure.support.StringUtil;
+import br.com.ifba.loja.infraestructure.support.Support;
+import br.com.ifba.loja.pessoa.model.bean.Endereco;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+
 /**
  *
  * @author lab02
@@ -420,36 +428,64 @@ public class TelaCadastroFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtEmailActionPerformed
 
     private void jbtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSalvarActionPerformed
-        // TODO add your handling code here:
-        /*List <FuncionarioCaixa> FC = new ArrayList();
-        FuncionarioCaixa F = new FuncionarioCaixa();
-        FuncionarioCaixaDAO FCD = new FuncionarioCaixaDAO();
+        Funcionario funcionario = new Funcionario();
+        Endereco enderecoFuncionario = new Endereco();
         
-        try{
-            
-            F.setNome(txtnomeFunc.getText());
-            F.setSenha(Integer.parseInt(txtsenhaFunc.getText()));
-            F.setEmail(txtemailFunc.getText());
-            F.setSexo((String)jComboBox2.getSelectedItem());
-            F.setRG(Integer.parseInt (txtRgFunc.getText()));
-            F.setCPF(Long.parseLong (txtCPF.getText()));
-            F.setEspecialização(txtEspecializa.getText());
-            F.setTelefone(Long.parseLong (txtTelFunc.getText()));
-            F.setRua(txtRuaFunc.getText());
-            F.setNumero(Integer.parseInt (txtNumFunc.getText()));
-            F.setCidade(txtCidade.getText());
-            F.setBairro(txtBairro.getText());
-            F.setEstado((String)jComboBox1.getSelectedItem());
-            F.setCEP(Integer.parseInt (txtCep.getText()));
-            
-            FCD.create(F);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar admissao = Calendar.getInstance();
+ 
+        if (jrbSim.isSelected())
+            funcionario.setUsuario(true);
+        else
+            funcionario.setUsuario(false);
         
-       }catch(java.lang.NumberFormatException ex){
-            
-            JOptionPane.showMessageDialog(null, "Um ou mais campos númericos foram preenchidos com pontos, espaços ou caracteres!");
+        funcionario.setNome(jtxtNome.getText());
+        funcionario.setEmail(jtxtEmail.getText());
+        funcionario.setSenha(new String(jptxtSenha.getPassword()));
+        funcionario.setSexo(jcbSexo.getSelectedItem().toString());
+        funcionario.setIeRg(jtxtRg.getText());
+        funcionario.setCpfCnpj(jftxtCpf.getText().replace(".", "")
+                .replace("-", ""));
+        funcionario.setCargo(jtxtCargo.getText());
+        funcionario.setTelefone(jftxtTelefone.getText().replace(" ", "")
+                .replace("(", "")
+                .replace(")", "")
+                .replace("-", ""));
+
+        enderecoFuncionario.setRua(jtxtRua.getText());
         
-       }
-        */
+        if (!StringUtil.getInstance().isEmpty(jtxtNumero.getText()))
+            enderecoFuncionario.setNumero(Integer.parseInt(jtxtNumero.getText()));
+        else
+            enderecoFuncionario.setNumero(0);
+        
+        enderecoFuncionario.setBairro(jtxtBairro.getText());
+        enderecoFuncionario.setCidade(jtxtCidade.getText());
+        enderecoFuncionario.setEstado(jcbEstado.getSelectedItem().toString());
+        enderecoFuncionario.setCep(jftxtCep.getText().replace("-", ""));
+        
+        try {
+            admissao.setTime(sdf.parse(jftxtDataAdmissao.getText()));
+        } 
+        catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        
+        funcionario.setDataAdmissao(admissao);
+        
+        enderecoFuncionario.setPessoa(funcionario);
+        funcionario.setEndereco(enderecoFuncionario);
+        
+        try {
+            Facede.getInstance().saveFuncionario(funcionario);
+            JOptionPane.showMessageDialog(this, "Funcionário cadastrado com sucesso!", "Sucesso!", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            Support.getInstance().limpaCampos(jPanel1);
+        }
+        catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Atenção!", 
+                    JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_jbtnSalvarActionPerformed
 
     private void jtxtRgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtRgActionPerformed

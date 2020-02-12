@@ -35,7 +35,7 @@ public class Funcionario extends Pessoa implements Serializable {
     @Temporal(TemporalType.DATE)
     private Calendar dataNascimento;
     @Column(nullable = false, length = 50)
-    private String gargo;
+    private String cargo;
     @Temporal(TemporalType.DATE)
     private Calendar dataAdmissao;
 
@@ -79,12 +79,12 @@ public class Funcionario extends Pessoa implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public String getGargo() {
-        return gargo;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setGargo(String gargo) {
-        this.gargo = gargo;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     public Calendar getDataAdmissao() {
