@@ -5,8 +5,6 @@
  */
 package br.com.ifba.loja.funcionario.view;
 import br.com.ifba.loja.gerente.view.TelaGerente;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author lab02
