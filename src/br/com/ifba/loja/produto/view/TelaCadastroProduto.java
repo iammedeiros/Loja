@@ -4,15 +4,16 @@
  * and open the template in the editor.
  */
 package br.com.ifba.loja.produto.view;
-import br.com.ifba.loja.gerente.view.TelaGerente;
+import br.com.ifba.loja.infraestructure.service.Facede;
+import br.com.ifba.loja.infraestructure.support.StringUtil;
 import br.com.ifba.loja.infraestructure.support.Support;
 import br.com.ifba.loja.produto.model.bean.Produto;
-import br.com.ifba.loja.venda.view.TelaVenda;
-import java.sql.Date;
+import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Icaro
@@ -50,8 +51,8 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         jtxtCategoria = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jtxtSecao = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jbtnSalvar = new javax.swing.JButton();
+        jbtnCancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -90,6 +91,12 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
 
         jLabel5.setText("Cód. de Barras:");
 
+        jtxtCodBarras.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtCodBarrasKeyReleased(evt);
+            }
+        });
+
         jLabel7.setText("Validade:");
 
         jLabel8.setText("Categoria:");
@@ -102,19 +109,19 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/salvar.png"))); // NOI18N
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbtnSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/salvar.png"))); // NOI18N
+        jbtnSalvar.setText("Salvar");
+        jbtnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbtnSalvarActionPerformed(evt);
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Cancelar.png"))); // NOI18N
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jbtnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Cancelar.png"))); // NOI18N
+        jbtnCancelar.setText("Cancelar");
+        jbtnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jbtnCancelarActionPerformed(evt);
             }
         });
 
@@ -209,9 +216,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                 .addComponent(jtxtCodBarras, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(135, 135, 135)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jbtnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
-                .addComponent(jButton2))
+                .addComponent(jbtnCancelar))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,8 +266,9 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
                     .addComponent(jtxtCodBarras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jbtnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -273,22 +281,76 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbtnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSalvarActionPerformed
+        Produto produto = new Produto();
         
-      
-    }//GEN-LAST:event_jButton1ActionPerformed
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar validade = Calendar.getInstance();
+        
+        try {
+            //verifica se o campo dataValidade não é vazio
+            if (!StringUtil.getInstance().isEmpty(jftxtValidade.getText()
+                    .replace("/", "")))
+                //se não for converte a data de string para calendar
+                validade.setTime(sdf.parse(jftxtValidade.getText()));
+            else
+                //se for atribui null a validade
+                validade = null;
+        } 
+        catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Formato de data inválido!", "Atenção!", 
+                    JOptionPane.WARNING_MESSAGE);
+        }
+        
+        produto.setDescricao(jtxtDescricao.getText());
+        
+        //verifica se o campo lote não está vazio
+        //se não estiver converte pra inteiro
+        //se estiver seta 0
+        if (!StringUtil.getInstance().isEmpty(jtxtLote.getText()))
+            produto.setLote(Integer.parseInt(jtxtLote.getText()));
+        else
+            produto.setLote(0);
+        
+        produto.setPrecoCusto(new BigDecimal(jtxtPrecoCusto.getText()));
+        produto.setPrecoVenda(new BigDecimal(jtxtPrecoVenda.getText()));
+        produto.setCategoria(jtxtCategoria.getText());
+        
+        //verifica se o campo secão não está vazio
+        //se não estiver converte pra inteiro
+        //se estiver seta 0
+        if (!StringUtil.getInstance().isEmpty(jtxtSecao.getText()))
+            produto.setSecao(Integer.parseInt(jtxtSecao.getText()));
+        
+        produto.setDataValidade(validade);
+        produto.setCodigoBarras(jtxtCodBarras.getText());
+        
+        try {
+            //chamada do metodo para persistir os dados na base
+            Facede.getInstance().saveProduto(produto);
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!", "Sucesso!", 
+                    JOptionPane.INFORMATION_MESSAGE);
+            Support.getInstance().limpaCampos(jPanel1);
+        }
+        catch(Exception ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Atenção!", 
+                    JOptionPane.WARNING_MESSAGE);
+        }    
+    }//GEN-LAST:event_jbtnSalvarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jbtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jbtnCancelarActionPerformed
 
     private void jtxtPrecoCustoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPrecoCustoKeyPressed
         
@@ -307,16 +369,22 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtPrecoVendaKeyReleased
 
     private void jtxtSecaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtSecaoKeyReleased
-        //faz com que o textbox aceite somente numeros, ponto e virgula
+        //faz com que o textbox aceite somente numeros
         jtxtSecao.setText(jtxtSecao.getText()
                 .replaceAll("[^0-9]", ""));
     }//GEN-LAST:event_jtxtSecaoKeyReleased
 
     private void jtxtLoteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtLoteKeyReleased
-        //faz com que o textbox aceite somente numeros, ponto e virgula
+        //faz com que o textbox aceite somente numeros
         jtxtLote.setText(jtxtLote.getText()
                 .replaceAll("[^0-9]", ""));
     }//GEN-LAST:event_jtxtLoteKeyReleased
+
+    private void jtxtCodBarrasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCodBarrasKeyReleased
+        //faz com que o textbox aceite somente numeros
+        jtxtCodBarras.setText(jtxtCodBarras.getText()
+                .replaceAll("[^0-9]", ""));
+    }//GEN-LAST:event_jtxtCodBarrasKeyReleased
 
     /**
      * @param args the command line arguments
@@ -354,8 +422,6 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -369,6 +435,8 @@ public class TelaCadastroProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton jbtnCancelar;
+    private javax.swing.JButton jbtnSalvar;
     private javax.swing.JFormattedTextField jftxtValidade;
     private javax.swing.JTextField jtxtCategoria;
     private javax.swing.JTextField jtxtCodBarras;
