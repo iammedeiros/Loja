@@ -26,8 +26,6 @@ public class Funcionario extends Pessoa implements Serializable {
     //atributo que defini se o funcionário é ou não é usuário do sistema
     @Column(nullable = false)
     private Boolean usuario;
-    @Column(nullable = true, length = 50)
-    private String login;
     @Column(nullable = true, length = 38)
     private String senha;
     @Column(nullable = true, length = 9)
@@ -45,14 +43,6 @@ public class Funcionario extends Pessoa implements Serializable {
 
     public void setUsuario(Boolean usuario) {
         this.usuario = usuario;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public String getSenha() {

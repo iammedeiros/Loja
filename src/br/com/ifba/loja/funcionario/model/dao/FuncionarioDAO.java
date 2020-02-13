@@ -17,8 +17,8 @@ public class FuncionarioDAO extends GenericDAO<Funcionario> implements IFunciona
     
     @Override
     public List<Funcionario> findByName(String name) {
-        String hql = "select p from pessoas p inner join funcionarios f on "
-                + "f.idPessoa = p.id where f.nome like %:nome%";
+        String hql = "from Pessoa p inner join Funcionario f "
+                + "where p.nome like %:nome%";
         
         return GenericDAO.entityManager.createQuery(hql)
                 .setParameter("nome", name)

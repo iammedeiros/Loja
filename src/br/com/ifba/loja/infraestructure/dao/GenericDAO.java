@@ -20,6 +20,10 @@ import javax.persistence.Persistence;
 @SuppressWarnings("unchecked")
 public class GenericDAO<T extends AbstractEntity> implements IGenericDAO<T>{
     protected static EntityManager entityManager;
+
+    public static EntityManager getEntityManager() {
+        return entityManager;
+    }
     
     static {
         EntityManagerFactory fac = Persistence

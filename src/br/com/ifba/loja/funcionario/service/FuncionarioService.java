@@ -69,7 +69,7 @@ public class FuncionarioService implements IFuncionarioService {
         if (StringUtil.getInstance().isEmpty(funcionario.getNome()))
             throw new BusinessException("Informe o nome do funcionário!");
         
-        else if (funcionario.isUsuario()) {
+        if (funcionario.isUsuario()) {
             if (StringUtil.getInstance().isEmpty(funcionario.getEmail()))
                 throw new BusinessException("Informe o email do funcionário "
                         + "para acesso ao sistema!");

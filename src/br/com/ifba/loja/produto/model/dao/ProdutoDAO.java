@@ -17,7 +17,7 @@ public class ProdutoDAO extends GenericDAO<Produto> implements IProdutoDAO {
 
     @Override
     public List<Produto> findByDescricao(String descricao) {
-        String hql = "select p from produtos where descricao like %:nome%";
+        String hql = "from Produto p where p.descricao like %:nome%";
         
         return GenericDAO.entityManager.createQuery(hql)
                 .setParameter("nome", descricao)

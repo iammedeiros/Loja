@@ -17,8 +17,8 @@ public class FornecedorDAO extends GenericDAO<Fornecedor> implements IFornecedor
 
     @Override
     public List<Fornecedor> findByRazaoSocial(String razaoSocial) {
-       String hql = "select p from pessoas p inner join fornecedores f on "
-                + "f.idPessoa = p.id where f.razaoSocial like %:razaoSocial%";
+       String hql = "from Pessoa p inner join Fornecedor f "
+                + "where f.razaoSocial like %:razaoSocial%";
         
         return GenericDAO.entityManager.createQuery(hql)
                 .setParameter("razaoSocial", razaoSocial)
